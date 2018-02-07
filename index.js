@@ -17,12 +17,13 @@ app.get('/answer', function (req, res) {
                 "action": "talk",
                 "text": "Thank you for contacting Q. M. E. S... " + user.greeting,
                 "voiceName": "Amy",
-                "bargeIn": false
+                "bargeIn": true
             },
             {
                 "action": "input",
                 "submitOnHash": true,
-                "eventUrl": [process.env.baseUrl + "ivr"]
+                "eventUrl": [process.env.baseUrl + "ivr"],
+                'timeOut': "10"
             }
         ]
 
@@ -31,16 +32,22 @@ app.get('/answer', function (req, res) {
 })
 
 app.all('/ivr', function (req, res) {
-    console.log("IN IVR", req);
+    var ncco = [{
+        "action": "talk",
+        "text": "In IVR",
+        "voiceName": "Amy"
+    }];
 
-    res.sendStatus(200);
+    console.log("IN IVR", req.params);
+
+    res.json(ncco);
 })
 
 app.post('/event', function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
-    console.log("REQUEST START", req)
+    console.log("IN EVENT", req.params);
     res.sendStatus(200);
 })
 
