@@ -3,13 +3,16 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const port = process.env.PORT || 3000;
 const sessionManager = require('./sessionManager');
+const flowHandler = require('./flowHandler');
 const app = express();
+
+app.use(bodyParser.json({
+    type: 'application/json'
+}));
+
 var user;
 
 app.get('/answer', function (req, res) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-
     //Get User
     user = sessionManager.getActiveUser(req.query.from);
     setTimeout(() => {
@@ -21,8 +24,8 @@ app.get('/answer', function (req, res) {
             },
             {
                 "action": "input",
-                "submitOnHash": true,
                 "eventUrl": [process.env.baseUrl + "ivr"],
+                "submitOnHash": true,
                 'timeOut': "10"
             }
         ]
@@ -32,22 +35,15 @@ app.get('/answer', function (req, res) {
 })
 
 app.all('/ivr', function (req, res) {
-    var ncco = [{
-        "action": "talk",
-        "text": "In IVR",
-        "voiceName": "Amy"
-    }];
-
-    console.log("IN IVR", req.params);
+    console.log("IN IVR: ", req.body)
+    ncco = flowHandler.handleInput(user, req.body.dtmf);
 
     res.json(ncco);
 })
 
-app.post('/event', function (req, res) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+app.all('/event', function (req, res) {
+    console.log("IN EVENT", req.body);
 
-    console.log("IN EVENT", req.params);
     res.sendStatus(200);
 })
 
