@@ -2,32 +2,49 @@ require('dotenv').config()
 const express = require('express');
 const bodyParser = require('body-parser');
 const port = process.env.PORT || 3000;
+const sessionManager = require('./sessionManager');
 const app = express();
 
 app.get('/answer', function (req, res) {
-    // res.header("Access-Control-Allow-Origin", "*");
-    // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+
+    //Get User
+    var user = sessionManager.getActiveUser(req.query.from);
+
     var ncco = [{
-        "action": "talk",
-        "text": "Thank you for contacting Q. M. E. S.",
-        "voiceName": "Amy"
-    }]
+            "action": "talk",
+            "text": "Thank you for contacting QMES",
+            "voiceName": "Amy",
+            "bargeIn": false
+        },
+        {
+            "action": "talk",
+            "text": "Hello, " + user.firstName + " " + user.lastName + ". If you calling about your most recent "+ user.lastOrder + " order please press 1. Otherwise press 2.",
+            "voiceName": "Amy",
+            "bargeIn": true
+        },
+        {
+            "action": "input",
+            "submitOnHash": true,
+            "eventUrl": [process.env.baseUrl + "ivr"]
+        }
+    ]
 
     res.json(ncco);
 })
 
-app.all('/event', function (req, res) {
-    // res.header("Access-Control-Allow-Origin", "*");
-    // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+app.all('/ivr', function (req, res) {
+    console.log("IN IVR", req);
 
-    if (req.body.status === "answered") {
-        console.log("CALL ANSWERED");
-    }
+    res.sendStatus(200);
+})
 
-    if (req.body.status === "completed") {
-        console.log("CALL COMPLETED");
-    }
+app.post('/event', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
+    console.log("REQUEST START", req)
     res.sendStatus(200);
 })
 
