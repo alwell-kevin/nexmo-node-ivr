@@ -4,34 +4,30 @@ const bodyParser = require('body-parser');
 const port = process.env.PORT || 3000;
 const sessionManager = require('./sessionManager');
 const app = express();
+var user;
 
 app.get('/answer', function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
     //Get User
-    var user = sessionManager.getActiveUser(req.query.from);
+    user = sessionManager.getActiveUser(req.query.from);
+    setTimeout(() => {
+        var ncco = [{
+                "action": "talk",
+                "text": "Thank you for contacting Q. M. E. S... " + user.greeting,
+                "voiceName": "Amy",
+                "bargeIn": false
+            },
+            {
+                "action": "input",
+                "submitOnHash": true,
+                "eventUrl": [process.env.baseUrl + "ivr"]
+            }
+        ]
 
-    var ncco = [{
-            "action": "talk",
-            "text": "Thank you for contacting QMES",
-            "voiceName": "Amy",
-            "bargeIn": false
-        },
-        {
-            "action": "talk",
-            "text": "Hello, " + user.firstName + " " + user.lastName + ". If you calling about your most recent "+ user.lastOrder + " order please press 1. Otherwise press 2.",
-            "voiceName": "Amy",
-            "bargeIn": true
-        },
-        {
-            "action": "input",
-            "submitOnHash": true,
-            "eventUrl": [process.env.baseUrl + "ivr"]
-        }
-    ]
-
-    res.json(ncco);
+        res.json(ncco);
+    }, 1250)
 })
 
 app.all('/ivr', function (req, res) {
