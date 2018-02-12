@@ -44,6 +44,7 @@ app.get('/answer', function (req, res) {
                 {
                     "action": "input",
                     "eventUrl": [process.env.BASE_URL + "ivr"],
+                    "maxDigits": "1",
                     'timeOut': "5"
                 }
             ]

@@ -21,6 +21,7 @@ const handleInput = (user, selection) => {
             ncco.push({
                 "action": "input",
                 "eventUrl": [process.env.BASE_URL + "ivr"],
+                "maxDigits": "1",
                 'timeOut': "5"
             })
             break;
@@ -40,6 +41,7 @@ const handleInput = (user, selection) => {
             ncco.push({
                 "action": "input",
                 "eventUrl": [process.env.BASE_URL + "ivr"],
+                "maxDigits": "1",
                 'timeOut': "5"
             })
             break;
@@ -78,6 +80,7 @@ const handleUnRegisteredInput = (user, input) => {
             ncco.push({
                 "action": "input",
                 "eventUrl": [process.env.BASE_URL + "ivr"],
+                "maxDigits": "1",
                 'timeOut': "5"
             })
             break;
@@ -91,6 +94,7 @@ const handleUnRegisteredInput = (user, input) => {
             ncco.push({
                 "action": "input",
                 "eventUrl": [process.env.BASE_URL + "ivr"],
+                "maxDigits": "1",
                 'timeOut': "5"
             })
             break;
