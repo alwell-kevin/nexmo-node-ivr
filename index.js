@@ -6,7 +6,6 @@ const sessionManager = require('./sessionManager');
 const flowHandler = require('./flowHandler');
 const app = express();
 
-//Set music or ringing when customer holding. music on hold parameter
 app.use(bodyParser.json({
     type: 'application/json'
 }));
@@ -37,7 +36,7 @@ app.get('/answer', function (req, res) {
             user = sessionManager.getActiveUser(req.query.from);
             ncco = [{
                     "action": "talk",
-                    "text": "Thank you for contacting Q. M. E. S... " + user.greeting,
+                    "text": "Thank you for contacting Q, M, E, S... " + user.greeting,
                     "voiceName": "Amy",
                     "bargeIn": true
                 },
@@ -51,7 +50,7 @@ app.get('/answer', function (req, res) {
         }
 
         res.json(ncco);
-    }, 1250)
+    }, 650)
 })
 
 app.all('/ivr', function (req, res) {
