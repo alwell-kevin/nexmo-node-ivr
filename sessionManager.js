@@ -7,7 +7,7 @@ const getActiveUser = (phoneNumber) => {
     registeredUsersList.forEach(registeredUser => {
         if (registeredUser.phoneNumber === phoneNumber) {
             activeUser = registeredUser;
-            activeUser.greeting = "Hello, " + activeUser.firstName + " " + activeUser.lastName + ". If you calling about your most recent " + activeUser.lastOrder + " order please press 1. Otherwise, to hear our call center options press 2 followed by the pound sign.";
+            activeUser.greeting = "Hello, " + activeUser.firstName + " " + activeUser.lastName + ". If you calling about your most recent " + activeUser.lastOrder + " order please press 1. Otherwise, to hear our call center options press 2.";
         }
     });
 
@@ -15,7 +15,7 @@ const getActiveUser = (phoneNumber) => {
     if (!activeUser.firstName) {
         activeUser = {};
         activeUser.lastOrder = null;
-        activeUser.greeting = "I notice you are calling us for the first time. Please listen for the following menu options. For shipping and receiving Press 1. For locations nearest you Press 2 followed by the pound sign.";
+        activeUser.greeting = "I notice you are calling us for the first time. Please listen for the following menu options. For shipping and receiving Press 1. For locations nearest you Press 2.";
     }
 
     console.log("Got user: ", activeUser.firstName + " " + activeUser.lastName);
