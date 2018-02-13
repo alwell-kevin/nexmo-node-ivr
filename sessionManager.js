@@ -12,7 +12,7 @@ const getActiveUser = (phoneNumber) => {
     });
 
     //If Unregisted User
-    if (!activeUser.firstName) {
+    if (!activeUser || !activeUser.firstName) {
         activeUser = {};
         activeUser.lastOrder = null;
         activeUser.greeting = "I notice you are calling us for the first time. Please listen for the following menu options. For shipping and receiving Press 1. For locations nearest you Press 2.";
