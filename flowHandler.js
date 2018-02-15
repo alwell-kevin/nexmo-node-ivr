@@ -19,13 +19,13 @@ const handleInput = (user, selection) => {
         case "1":
             ncco.push({
                 "action": "talk",
-                "text": user.firstName + ", Your " + user.lastOrder + " order is scheduled to be delivered on March 19th at 3pm.",
+                "text": user.firstName + ", you are now checked out of room 423.",
                 "voiceName": "Amy",
                 "bargeIn": false
             })
             ncco.push({
                 "action": "talk",
-                "text": "To say, rather than type your selection please press 3.",
+                "text": "Thank you for staying with Hilton...",
                 "voiceName": "Amy",
                 "bargeIn": true
             })
@@ -45,7 +45,7 @@ const handleInput = (user, selection) => {
         case "2":
             ncco.push({
                 "action": "talk",
-                "text": "For payments processing press 2.",
+                "text": "For room service and guest services press 2.",
                 "voiceName": "Amy",
                 "bargeIn": true
             })
@@ -92,12 +92,12 @@ const handleInput = (user, selection) => {
         default:
             ncco.push({
                 "action": "talk",
-                "text": "Please wait while we connect you to Ethan Douglass from customer services.",
+                "text": "Please wait while we connect you to Ethan Douglass from guest services.",
                 "voiceName": "Amy",
                 "bargeIn": false
             }, {
                 "action": "conversation",
-                "name": "qmes-conference",
+                "name": "guestware-conference",
                 "startOnEnter": "false"
             })
 
@@ -117,7 +117,7 @@ const handleUnRegisteredInput = (user, input) => {
         case "1":
             ncco.push({
                 "action": "talk",
-                "text": "Welcome to Q.M.E.S, shipping & receiving. To place an order please press 0. Followed by the pound sign.",
+                "text": "To place a room service order please press 0. Followed by the pound sign.",
                 "voiceName": "Amy",
                 "bargeIn": false
             })
@@ -131,7 +131,7 @@ const handleUnRegisteredInput = (user, input) => {
         case "2":
             ncco.push({
                 "action": "talk",
-                "text": "Welcome to Q.M.E.S, location directory. Our location nearest you is 35 minutes south west in pottsville, pennsylvania. For more options, please press 0 then pound.",
+                "text": "Welcome to services directory. For Room service please press 0. Otherwise press 3 to speak your order.",
                 "voiceName": "Amy",
                 "bargeIn": false
             })
@@ -171,7 +171,7 @@ const handleUnRegisteredInput = (user, input) => {
                 "bargeIn": false
             }, {
                 "action": "conversation",
-                "name": "qmes-conference",
+                "name": "guestware-conference",
                 "startOnEnter": "false"
             })
 

@@ -40,12 +40,12 @@ dispatcher.onGet('/answer', function (req, res) {
         if (user && user.greeting) {
             ncco = [{
                     "action": "talk",
-                    "text": "Hello, thank you for servicing this call. " + user.firstName + " " + user.lastName + " is on the line. Its likely " + user.firstName + " is calling about " + user.lastOrder,
+                    "text": "Hello, thank you for servicing this call. " + user.firstName + " " + user.lastName + " is on the line. Calling about room service.",
                     "voiceName": "Brian"
                 },
                 {
                     "action": "conversation",
-                    "name": "qmes-conference",
+                    "name": "guestware-conference",
                     "startOnEnter": "true",
                     "endOnExit": "true"
                 }
@@ -56,7 +56,7 @@ dispatcher.onGet('/answer', function (req, res) {
             user = sessionManager.getActiveUser(req.params.from);
             ncco = [{
                     "action": "talk",
-                    "text": "Thank you for contacting Q, M, E, S... " + user.greeting,
+                    "text": "Thank you for contacting the front desk... " + user.greeting,
                     "voiceName": "Amy",
                     "bargeIn": true
                 },
@@ -77,6 +77,7 @@ dispatcher.onGet('/answer', function (req, res) {
     }, 650)
 })
 
+// THIS IS WHERE I REACT TO THE DTMF INPUT
 dispatcher.onPost('/ivr', function (req, res) {
     req.body = JSON.parse(req.body);
     console.log("IN IVR: ", req.body);
@@ -111,7 +112,7 @@ dispatcher.onGet('/voicechat', function (req, res) {
         "action": "input",
         "eventUrl": [process.env.BASE_URL + "ivr"],
         "maxDigits": "1",
-        'timeOut': "7"
+        "timeOut": "7"
     })
 
     res.writeHead(200, {

@@ -1,16 +1,7 @@
 const intents = [{
-        name: "home_modifications",
+        name: "room_service",
         keyWords: ["home", "modifications", "improvements", "house", "accessibility"],
-        response: "Great, I are forwarding you to our home accessibility department."
-    },
-    {
-        name: "shipping_receiving",
-        keyWords: ["shipping", "receiving", "shipment", "tracking", "track"],
-        response: "Okay, I am now connecting you to our shipping and receiving department."
-    }, {
-        name: "payments_processing",
-        keyWords: ["payments", "payment", "make", "bill", "pay", "invoice"],
-        response: "Please say your credit card long number. Followed by the experation."
+        response: "Great, I am forwarding you to room service..."
     },
     {
         name: "yes",
@@ -25,7 +16,7 @@ const intents = [{
     {
         name: "unknown",
         keyWords: ["unknown"],
-        response: "Sorry, I did not understand you. I would like to connect you with care."
+        response: "Sorry, I did not understand you. I would like to connect you with care..."
     }
 
 ]
