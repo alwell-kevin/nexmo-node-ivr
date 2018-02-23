@@ -1,6 +1,6 @@
 const intents = [{
         name: "room_service",
-        keyWords: ["home", "modifications", "improvements", "house", "accessibility"],
+        keyWords: ["room", "service", "order", "food", "dinner"],
         response: "Great, I am forwarding you to room service..."
     },
     {

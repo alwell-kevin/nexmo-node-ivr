@@ -56,7 +56,7 @@ dispatcher.onGet('/answer', function (req, res) {
             user = sessionManager.getActiveUser(req.params.from);
             ncco = [{
                     "action": "talk",
-                    "text": "Thank you for contacting the front desk... " + user.greeting,
+                    "text": "Thank you for contacting the front desk powered by guest wear... " + user.greeting,
                     "voiceName": "Amy",
                     "bargeIn": true
                 },
