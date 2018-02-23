@@ -79,12 +79,12 @@ const handleInput = (user, selection) => {
             ncco.push({
                 "action": "connect",
                 "eventUrl": [
-                    "https://12ab0171.ngrok.io/event"
+                    process.env.BASE_URL + "event"
                 ],
                 "from": "17326157295",
                 "endpoint": [{
                     "type": "websocket",
-                    "uri": "https://12ab0171.ngrok.io/socket",
+                    "uri": process.env.BASE_URL + "socket",
                     "content-type": "audio/l16;rate=16000"
                 }]
             })
@@ -153,12 +153,12 @@ const handleUnRegisteredInput = (user, input) => {
             ncco.push({
                 "action": "connect",
                 "eventUrl": [
-                    "https://12ab0171.ngrok.io/event"
+                    process.env.BASE_URL + "event"
                 ],
                 "from": "17326157295",
                 "endpoint": [{
                     "type": "websocket",
-                    "uri": "https://12ab0171.ngrok.io/socket",
+                    "uri": process.env.BASE_URL + "socket",
                     "content-type": "audio/l16;rate=16000"
                 }]
             })
@@ -199,7 +199,7 @@ const returnSpeechDataToConversation = (intent, conversation_uuid) => {
         "action": "transfer",
         "destination": {
             "type": "ncco",
-            "url": ["https://12ab0171.ngrok.io/voicechat"]
+            "url": [process.env.BASE_URL + "voicechat"]
         }
     }, function () {
         setIntentResponse(intent);
