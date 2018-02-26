@@ -1,6 +1,6 @@
 const nexmoParent = require("nexmo");
-const inContact = require('./inContact');
-const watson = require("./watson");
+const inContact = require('../integrations/inContact');
+const watson = require("../integrations/watson");
 var response;
 
 //Instantiate Nexmo Object

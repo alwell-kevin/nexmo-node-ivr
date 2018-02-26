@@ -1,7 +1,7 @@
 var watson = require('watson-developer-cloud');
 var WebSocket = require('ws');
-var speechAction = require('./speechAction');
-var flowHandler = require('./flowHandler');
+var speechAction = require('../speechHandling/speechAction');
+var flowHandler = require('../speechHandling/flowHandler');
 
 var authorization = new watson.AuthorizationV1({
     "url": process.env.WATSON_SPEECH_RECOGNITION_URL,

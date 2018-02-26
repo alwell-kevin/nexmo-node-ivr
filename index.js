@@ -3,8 +3,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const port = process.env.PORT || 3000;
 const sessionManager = require('./sessionManager');
-const flowHandler = require('./flowHandler');
-const watson = require("./watson");
+const flowHandler = require('./speechHandling/flowHandler');
+const watson = require("./integrations/watson");
 var HttpDispatcher = require('httpdispatcher');
 var dispatcher = new HttpDispatcher();
 var WebSocketServer = require('websocket').server;
@@ -101,7 +101,7 @@ dispatcher.onGet('/voicechat', function (req, res) {
 
     ncco.push({
         "action": "talk",
-        "text": user.firstName + flowHandler.getIntentResponse()
+        "text": user.firstName + " " + flowHandler.getIntentResponse()
     })
     ncco.push({
         "action": "talk",

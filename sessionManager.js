@@ -1,4 +1,4 @@
-const registeredUsersList = require('./userRegistery');
+const registeredUsersList = require('./db/userRegistery');
 
 const getActiveUser = (phoneNumber) => {
     var activeUser;
