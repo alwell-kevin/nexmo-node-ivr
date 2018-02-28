@@ -40,7 +40,7 @@ dispatcher.onGet('/answer', function (req, res) {
         if (user && user.greeting) {
             ncco = [{
                     "action": "talk",
-                    "text": "Hello, thank you for servicing this call. " + user.firstName + " " + user.lastName + " is on the line. Calling about room service.",
+                    "text": "Hello, thank you for servicing this call. " + user.firstName + " " + user.lastName + " is on the line. Calling about an upcoming appointment.",
                     "voiceName": "Brian"
                 },
                 {
@@ -56,7 +56,7 @@ dispatcher.onGet('/answer', function (req, res) {
             user = sessionManager.getActiveUser(req.params.from);
             ncco = [{
                     "action": "talk",
-                    "text": "Thank you for contacting the front desk powered by guest wear... " + user.greeting,
+                    "text": "Thank you for contacting Active Day... " + user.greeting,
                     "voiceName": "Amy",
                     "bargeIn": true
                 },
