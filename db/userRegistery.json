@@ -1,48 +1,40 @@
 [{
         "phoneNumber": "17326157295",
         "firstName": "Kevin",
-        "lastName": "Alwell",
-        "lastOrder": "seat lift"
+        "lastName": "Alwell"
     },
     {
         "phoneNumber": "19178540212",
         "firstName": "Katherine",
-        "lastName": "Long",
-        "lastOrder": "respiratory care"
+        "lastName": "Long"
     },
     {
         "phoneNumber": "17142629664",
         "firstName": "Oscar",
-        "lastName": "Rodriguez",
-        "lastOrder": "sleep therapy"
+        "lastName": "Rodriguez"
     },
     {
         "phoneNumber": "13305544445",
         "firstName": "John",
-        "lastName": "Bradbury",
-        "lastOrder": "bed lift"
+        "lastName": "Bradbury"
     },
     {
         "phoneNumber": "15713864276",
         "firstName": "Ethan",
-        "lastName": "Douglas",
-        "lastOrder": "Bath Aids"
+        "lastName": "Douglas"
     },
     {
         "phoneNumber": "14158058792",
         "firstName": "Tony",
-        "lastName": "Chan",
-        "lastOrder": "Bath Aids"
+        "lastName": "Chan"
     },
     {
         "phoneNumber": "17327788843",
         "firstName": "Jim",
-        "lastName": "Whittock",
-        "lastOrder": "Bath Aids"
-    },    {
+        "lastName": "Whittock"
+    }, {
         "phoneNumber": "12018882725",
-        "firstName": "Jim",
-        "lastName": "Whittock",
-        "lastOrder": "Bath Aids"
+        "firstName": "Julia",
+        "lastName": "Shub"
     }
 ]

@@ -82,7 +82,7 @@ dispatcher.onPost('/ivr', function (req, res) {
     req.body = JSON.parse(req.body);
     console.log("IN IVR: ", req.body);
 
-    if (user.lastOrder) {
+    if (user.firstName) {
         ncco = flowHandler.handleInput(user, req.body.dtmf);
     } else {
         ncco = flowHandler.handleUnRegisteredInput(user, req.body.dtmf);
