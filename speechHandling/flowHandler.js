@@ -19,19 +19,19 @@ const handleInput = (user, selection) => {
         case "1":
             ncco.push({
                 "action": "talk",
-                "text": user.firstName + ", you are now checked out of room 423.",
+                "text": user.firstName + ", your appointment is now confirmed for March 8th at 4pm. You may hang up now",
                 "voiceName": "Amy",
                 "bargeIn": false
             })
             ncco.push({
                 "action": "talk",
-                "text": "Thank you for staying with Hilton...",
+                "text": " Or keep listening to the following menu options.",
                 "voiceName": "Amy",
                 "bargeIn": true
             })
             ncco.push({
                 "action": "talk",
-                "text": "To speak with a live agent press 0. To hear more options press 2.",
+                "text": "To discuss home care services press 2. To speak with a live agent press 0.",
                 "voiceName": "Amy",
                 "bargeIn": true
             })
@@ -45,7 +45,7 @@ const handleInput = (user, selection) => {
         case "2":
             ncco.push({
                 "action": "talk",
-                "text": "For room service and guest services press 2.",
+                "text": "Welcome to our home care services department. Our Qualified caregivers provide assistance with bathing, dressing, grooming, toileting and other hygiene needs. ",
                 "voiceName": "Amy",
                 "bargeIn": true
             })
@@ -73,7 +73,7 @@ const handleInput = (user, selection) => {
 
             ncco.push({
                 "action": "talk",
-                "text": "Please say what you are calling about."
+                "text": "Please tell me what you are calling about."
             })
 
             ncco.push({
@@ -92,7 +92,7 @@ const handleInput = (user, selection) => {
         default:
             ncco.push({
                 "action": "talk",
-                "text": "Please wait while we connect you to Ethan Douglass from guest services.",
+                "text": "Please wait while we connect you to Ethan Douglass from active day home care services.",
                 "voiceName": "Amy",
                 "bargeIn": false
             }, {
@@ -117,7 +117,7 @@ const handleUnRegisteredInput = (user, input) => {
         case "1":
             ncco.push({
                 "action": "talk",
-                "text": "To place a room service order please press 0. Followed by the pound sign.",
+                "text": "To discuss home care services press 2. To speak with a live agent press 0.",
                 "voiceName": "Amy",
                 "bargeIn": false
             })
@@ -131,7 +131,7 @@ const handleUnRegisteredInput = (user, input) => {
         case "2":
             ncco.push({
                 "action": "talk",
-                "text": "Welcome to services directory. For Room service please press 0. Otherwise press 3 to speak your order.",
+                "text": "Welcome to our home care services department. Our Qualified caregivers provide assistance with bathing, dressing, grooming, toileting and other hygiene needs. please press 0 to speak with a live agent. Otherwise press 3 to tell us what you are calling about.",
                 "voiceName": "Amy",
                 "bargeIn": false
             })
@@ -166,7 +166,7 @@ const handleUnRegisteredInput = (user, input) => {
         default:
             ncco.push({
                 "action": "talk",
-                "text": "Please wait while we connect you to Ethan from customer services.",
+                "text": "Please wait while we connect you to Ethan from client services.",
                 "voiceName": "Amy",
                 "bargeIn": false
             }, {
