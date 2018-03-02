@@ -24,7 +24,7 @@ const intents = [{
 //Map transcript to user intent.
 //Alternatively, could/should use watson NLU API.
 const handleSpeech = (transcript) => {
-    var mappedIntent = intents[5]; //Handle Unknown input
+    var mappedIntent = intents[4]; //Handle Unknown input
 
     return new Promise(function (resolve, reject) {
         for (var i = 0; i < intents.length; i++) {
