@@ -12,10 +12,6 @@ var http = require('http');
 var server = http.createServer(handleRequest);
 //Used to location the conversation (will be stored in session for actual implementation)
 var conversation_uuid;
-//THIS MAY BE A PROBLEM TODO: FIND SERVER.USE ALTERNATIVE
-// app.use(bodyParser.json({
-//     type: 'application/json'
-// }));
 
 //Lets use our dispatcher
 function handleRequest(request, response) {
