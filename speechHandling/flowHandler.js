@@ -92,7 +92,7 @@ const handleInput = (user, selection) => {
         default:
             ncco.push({
                 "action": "talk",
-                "text": "Please wait while we connect you to Ethan Douglass from guest services.",
+                "text": "Please wait while we connect you to Kevin Alwell from guest services.",
                 "voiceName": "Amy",
                 "bargeIn": false
             }, {
