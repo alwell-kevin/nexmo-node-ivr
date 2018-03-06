@@ -73,7 +73,7 @@ const handleInput = (user, selection) => {
 
             ncco.push({
                 "action": "talk",
-                "text": "Please say what you are calling about."
+                "text": "Please take a moment, then say what you are calling about."
             })
 
             ncco.push({
@@ -147,7 +147,7 @@ const handleUnRegisteredInput = (user, input) => {
 
             ncco.push({
                 "action": "talk",
-                "text": "Please say what you are calling about."
+                "text": "Please take a moment, then say what you are calling about."
             })
 
             ncco.push({

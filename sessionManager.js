@@ -7,7 +7,7 @@ const getActiveUser = (phoneNumber) => {
     registeredUsersList.forEach(registeredUser => {
         if (registeredUser.phoneNumber === phoneNumber) {
             activeUser = registeredUser;
-            activeUser.greeting = activeUser.firstName + " " + activeUser.lastName +  ". If you calling to check out please press 1. Otherwise, to hear all other options press 2.";
+            activeUser.greeting = activeUser.firstName + " " + activeUser.lastName + ". If you calling to check out please press 1. Otherwise, to hear all other options press 2.";
         }
     });
 

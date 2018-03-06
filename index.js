@@ -7,15 +7,125 @@ const flowHandler = require('./speechHandling/flowHandler');
 const watson = require("./integrations/watson");
 var HttpDispatcher = require('httpdispatcher');
 var dispatcher = new HttpDispatcher();
+
 var WebSocketServer = require('websocket').server;
 var http = require('http');
+
 var server = http.createServer(handleRequest);
+
+// BEGIN NEXMO WEBSOCKET IMPLEMENTATION
+
+//Handle Watson Below
+var nexmoWebSocketServer = new WebSocketServer({
+    httpServer: server,
+    autoAcceptConnections: true,
+});
+
+//Listens for Nexmo websocket audio data. Sends it through Watson Web Socket
+nexmoWebSocketServer.on('connect', function (connection) {
+    console.log("***********IN SOCKET ENDPOINT***********", connection)
+
+    var recognizeStream = new RecognizeStream(connection);
+})
+
+class RecognizeStream {
+    constructor(connection) {
+        this.streamCreatedAt = null;
+        this.stream = null;
+        this.user = null
+        this.request = {
+            config: {
+                encoding: 'LINEAR16',
+                sampleRateHertz: 16000,
+                languageCode: 'en-US' //Default Lang, will be updated with value from websocket
+            },
+            interimResults: false // If you want interim results, set this to true
+        };
+        connection.on('message', this.processMessage.bind(this));
+        connection.on('close', this.close.bind(this));
+        this.getStream().then(function (stream) {
+            this.stream = stream;
+        }.bind(this))
+    }
+
+    processMessage(message) {
+
+        if (message.type === 'utf8') {
+            // Log the initial Message
+            var data = JSON.parse(message.utf8Data)
+            this.request.config.languageCode = data.languageCode
+            this.user = data.user
+        } else if (message.type === 'binary') {
+            if (this.stream) {
+                this.stream.send(message.binaryData);
+            }
+        }
+
+    }
+
+
+    close() {
+        console.log((new Date()) + ' Peer disconnected.');
+        this.stream.close()
+    }
+
+    newStreamRequired() {
+        // No stream exists
+        if (!this.stream) {
+            return true;
+        }
+        // check time since stream was created.  If 60+ seconds ago create a new stream
+        else {
+            const now = new Date();
+            const timeSinceStreamCreated = (now - this.streamCreatedAt); // returns millis since stream created
+            return (timeSinceStreamCreated / 1000) > 60;
+        }
+    }
+
+    // helper function to ensure we always get a stream object with enough time remaining to work with
+    getStream() {
+        var self = this;
+
+        return new Promise((resolve, reject) => {
+            if (self.newStreamRequired()) {
+                if (self.stream) {
+                    self.stream.destroy();
+                }
+                self.streamCreatedAt = new Date();
+                //console.log("Sending request as " + self.request.config.languageCode);
+                watson.launchWatson(conversation_uuid).then(function (ws) {
+                    self.stream = ws;
+                    console.log("STREAM SET: ", self.stream);
+                    resolve(self.stream);
+                })
+            } else {
+                resolve(self.stream);
+            }
+        })
+    }
+}
+
+// FINISH NEXMO WEBSOCKET IMPLEMENTATION
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// BEGIN IVR ROUTING IMPLEMENTATION
+
+
 //Used to location the conversation (will be stored in session for actual implementation)
 var conversation_uuid;
-//THIS MAY BE A PROBLEM TODO: FIND SERVER.USE ALTERNATIVE
-// app.use(bodyParser.json({
-//     type: 'application/json'
-// }));
+
 
 //Lets use our dispatcher
 function handleRequest(request, response) {
@@ -50,6 +160,8 @@ dispatcher.onGet('/answer', function (req, res) {
                     "endOnExit": "true"
                 }
             ]
+
+            user = null;
         } else {
             //IF No active session, get user. Launch IVR.
             //Get User
@@ -82,7 +194,7 @@ dispatcher.onPost('/ivr', function (req, res) {
     req.body = JSON.parse(req.body);
     console.log("IN IVR: ", req.body);
 
-    if (user.lastOrder) {
+    if (user.firstName) {
         ncco = flowHandler.handleInput(user, req.body.dtmf);
     } else {
         ncco = flowHandler.handleUnRegisteredInput(user, req.body.dtmf);
@@ -123,41 +235,10 @@ dispatcher.onGet('/voicechat', function (req, res) {
 })
 
 dispatcher.onPost('/event', function (req, res) {
-    // res.sendStatus(200);
-})
+    console.log(JSON.parse(req.body).status)
 
-//Handle Watson Below
-var wsServer = new WebSocketServer({
-    httpServer: server,
-    autoAcceptConnections: true,
-});
-
-//Listens for Nexmo websocket audio data. Sends it through Watson Web Socket
-wsServer.on('connect', function (connection) {
-    console.log("***********IN SOCKET ENDPOINT***********", connection)
-    var watsonSocket;
-
-    //Get websocket instance (Open communication with Watson).
-    watson.launchWatson(conversation_uuid).then(function (ws) {
-        watsonSocket = ws;
-    })
-
-    connection.on('message', function (message) {
-
-
-        if (message.type === 'utf8') {
-            console.log("UTF8 AUDIO STREAMING", message);
-
-        } else if (watsonSocket && message.type === 'binary' && message.binaryData) {
-            watsonSocket.send(message.binaryData);
-        }
-
-    });
-
-    connection.on('close', function (reasonCode, description) {
-        console.log((new Date()) + ' Peer ' + connection.remoteAddress + ' disconnected.');
-    });
-
+    res.writeHead(200);
+    res.end();
 })
 
 // Start server

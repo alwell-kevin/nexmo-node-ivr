@@ -1,4 +1,13 @@
 const intents = [{
+        name: "unknown",
+        keyWords: ["unknown"],
+        response: "Sorry, I did not understand you. I would like to connect you with care..."
+    },
+    {
+        name: "test",
+        keyWords: ["test", "testing"],
+        response: "I do not need any more testing. I have been tested thoroughly by my creator, Kevin Alwell. Hangup and try again."
+    }, {
         name: "room_service",
         keyWords: ["room", "service", "order", "food", "dinner"],
         response: "Great, I am forwarding you to room service..."
@@ -14,9 +23,9 @@ const intents = [{
         response: "Okay, then how can I help you?"
     },
     {
-        name: "unknown",
-        keyWords: ["unknown"],
-        response: "Sorry, I did not understand you. I would like to connect you with care..."
+        name: "hello",
+        keyWords: ["hi", "hey", "hello", "howdy", "hola"],
+        response: "Hi! Thanks for being so patient."
     }
 
 ]
@@ -24,7 +33,7 @@ const intents = [{
 //Map transcript to user intent.
 //Alternatively, could/should use watson NLU API.
 const handleSpeech = (transcript) => {
-    var mappedIntent = intents[5]; //Handle Unknown input
+    var mappedIntent = intents[0]; //Handle Unknown input
 
     return new Promise(function (resolve, reject) {
         for (var i = 0; i < intents.length; i++) {
